@@ -13,6 +13,8 @@
 /vendor
 .DS_Store
 .env
+.PRD-muhamadsatria-portofolio.txt
+.thema-color.txt
 .env.backup
 .env.production
 .phpactor.json
