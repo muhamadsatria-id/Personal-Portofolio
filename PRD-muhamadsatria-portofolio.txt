@@ -1,0 +1,869 @@
+================================================================================
+PRD - WEBSITE PORTOFOLIO MUHAMAD SATRIA
+Product Requirements Document untuk AI Coding Agent (OpenCode)
+Versi 1.0 | Oktober 2026
+================================================================================
+
+CARA MEMBACA DOKUMEN INI (UNTUK AGENT)
+--------------------------------------
+- Kerjakan BERURUTAN sesuai "Fase Implementasi" (Bagian 14). Jangan lompat fase.
+- Setelah tiap fase: jalankan build + test, pastikan tidak ada error, lalu commit.
+- Jika ada keputusan teknis yang tidak tertulis, pilih opsi paling sederhana yang
+  konsisten dengan stack di Bagian 3, lalu catat di file DECISIONS.md.
+- Semua teks UI publik: default Bahasa Indonesia (id), dengan dukungan English (en).
+- Jangan hardcode konten. Semua konten publik harus berasal dari database dan
+  dikelola lewat panel admin (kecuali teks UI statis seperti label tombol, yang
+  disimpan di file terjemahan).
+
+
+--------------------------------------------------------------------------------
+1. RINGKASAN PRODUK
+--------------------------------------------------------------------------------
+Nama proyek     : Portofolio Muhamad Satria
+Domain utama    : muhamadsatria.my.id
+Domain brand    : sardevstudio.my.id (SardevStudio, dipakai sebagai agency/brand)
+Tujuan          : Website portofolio profesional, interaktif, dinamis, dengan
+                  animasi halus, untuk menarik klien dan perekrut. Terdiri dari
+                  (A) situs publik dan (B) panel admin untuk mengelola seluruh
+                  konten, SEO, dan penempelan script pihak ketiga.
+
+Target pengunjung:
+  1. Calon klien (instansi pemerintah, UMKM, perusahaan) yang butuh website,
+     sistem informasi, POS, otomasi, atau AI.
+  2. Recruiter / HR yang menilai kandidat Full-Stack / ML / Automation.
+  3. Akademisi / kolaborator (publikasi jurnal, konferensi).
+
+Status profesional yang ditonjolkan: "Open for Opportunities" (badge dapat
+di-toggle dari admin).
+
+Prinsip desain:
+  - Profesional, bersih, tenang (palet sage/forest green + off-white).
+  - Landing page "lengkap": ringkasan SEMUA section (Projects, Blog,
+    Testimonials, Contact, dst.) tampil di Beranda, DAN masing-masing tetap
+    punya halaman sendiri untuk detail dan SEO.
+  - Animasi bergerak halus, tidak mengganggu, menghormati prefers-reduced-motion.
+  - Cepat (Lighthouse target >= 90 semua kategori) dan mobile-first.
+
+
+--------------------------------------------------------------------------------
+2. DATA IDENTITAS (SEED AWAL)
+--------------------------------------------------------------------------------
+Semua data ini harus di-seed ke database (Seeder) dan dapat diedit dari admin.
+
+Nama lengkap     : Muhamad Satria
+Gelar            : Sarjana Komputer (S.Kom) - Teknik Informatika
+Profil           : Full-Stack Web Development, Machine Learning, Automation,
+                   & AI Engineering IoT
+Domisili         : Sukabumi, Jawa Barat, Indonesia
+WhatsApp         : +62 857-8948-3844  (link: https://wa.me/6285789483844)
+Domain portfolio : muhamadsatria.my.id
+Domain agency    : sardevstudio.my.id
+LinkedIn, GitHub, YouTube : @muhamadsatria-id
+Facebook, Instagram, TikTok, Threads : @muhamadsatria.id
+Instagram brand  : @sardevstudio.id
+Copyright        : "© 2026 Muhamad Satria. All rights reserved."
+Tagline utama    : "A Disciplined Approach to Digital Innovation, Automation,
+                   & Web Development."
+Sub-tagline      : "Building high-performance web systems, custom background
+                   automation tools, and scalable software solutions."
+
+Ringkasan (About):
+  Lulusan Sarjana Komputer (S.Kom) Teknik Informatika dengan keahlian utama di
+  bidang Software Engineering dan pengembangan sistem berbasis web. Terbiasa
+  dalam pengembangan software engineering yang efisien, termasuk pengembangan
+  AI Agent, Browser & Social Media Automation, hingga integrasi Internet of
+  Things (IoT). Memiliki pengalaman nyata dalam riset ilmiah/publikasi jurnal,
+  serta pemahaman praktis dalam optimasi Website Monetization dan Google AdSense.
+
+2.1 Sertifikasi & Pelatihan (seed)
+  1. Information Technology Specialist - Software Development
+     (Certiport / Pearson VUE / CertNexus)
+  2. MTCNA - MikroTik Certified Network Associate (MikroTik / Mikrotikls SIA)
+  3. Database Foundations (Oracle Academy)
+  4. JavaScript Essentials 1 (Cisco Networking Academy / JS Institute)
+  5. EnglishScore Core Skills CEFR B1 - Skor 336 (British Council)
+  6. Tes Potensi Akademik (TPA) Bappenas - Skor 435.03
+     (Koperasi Pegawai Bappenas / Bina Cipta Seleksindo)
+  7. Public Speaking Program Novice Level - Skor 246 (The Energetic EPDC)
+  8. Seminar Nasional SENTIMETER 2026 - Ethical Hacking and Offensive AI
+     (Universitas Nusa Putra)
+  9. Conference on Applied Science and Digital Technology (ASDiTech 2026)
+ 10. Conference on Education and Sustainable Development (NCESD 2026)
+
+2.2 Layanan & Tech Stack (seed, dikelompokkan)
+  - Web Development: Laravel, PHP, Node.js, JavaScript, Tailwind CSS, MySQL,
+    SQLite, REST APIs, Website Monetization & Google AdSense Optimization
+  - Automation & AI Systems: Python, AI Agent Development, Browser & Social
+    Media Automation, Playwright, Machine Learning (XGBoost, Scikit-Learn,
+    Pandas)
+  - Hardware & IoT: Integrasi IoT pada sistem PLTS & Automation Controllers
+  - Infrastruktur & Server: VPS Ubuntu, aaPanel, cPanel Hosting, Cloudflare
+    Tunnels, Networking (MikroTik/Cisco)
+
+2.3 Proyek (seed, 11 proyek)
+  Catatan: tahun, URL demo, dan gambar belum diketahui; beri nilai default dan
+  biarkan admin melengkapinya. Tandai field kosong sebagai opsional.
+
+  1. SPINTAS - Public Information & Consultation Web Portal
+     Klien: Badan Pusat Statistik Kota Sukabumi | 2026
+  2. BADIG - Integrated Data Management System
+     Klien: Sat Intelkam Kota Sukabumi | 2026
+  3. Website Informasi Puskesmas di Kabupaten Sukabumi
+     Klien: Diskominfosan Kabupaten Sukabumi
+  4. Obesity Risk Prediction System - Machine Learning Lifestyle Risk
+     Assessment (proyek skripsi) | Kategori: Health / ML | 2026
+  5. FinCraft - AI-Enabled Financial Management App (proyek pribadi)
+     Kategori: Finance | 2026
+  6. Farm Track Manager - Digital Livestock Health & Feed Tracking System
+     Kota Bogor | Kategori: Livestock | 2026
+  7. Company Profile + E-Catalogue PT Mandalika Global Alkesindo (jual, beli,
+     service, pengadaan alat kesehatan) - Kota Bogor
+  8. POS & Manajemen Finansial Internal PT Mandalika Global Alkesindo,
+     Tajur, Bogor
+  9. Company Profile, POS & Manajemen Internal PT Ade Pasir, Cibolang,
+     Sukabumi
+ 10. Website Company Profile + E-Catalog Pemesanan Online Cafe Bumi Awang
+     (proyek skripsi), Kabupaten Sukabumi
+ 11. POS System Toko Bangunan 39, Kota Sukabumi
+
+  Aturan seed: field "year" untuk proyek no. 3 dan 7-11 dikosongkan (null) dan
+  diberi catatan di DECISIONS.md agar admin mengisinya. Jangan mengarang tahun
+  atau URL demo.
+
+
+--------------------------------------------------------------------------------
+3. TECH STACK (WAJIB)
+--------------------------------------------------------------------------------
+Backend    : Laravel (versi terbaru yang terpasang di project), PHP 8.3+
+Frontend   : React + TypeScript via Inertia.js (Laravel React Starter Kit
+             yang SUDAH terpasang di project - gunakan, jangan buat ulang)
+UI         : Tailwind CSS v4 + shadcn/ui (starter kit sudah memakai ini)
+Animasi    : Motion (paket "motion", dulu framer-motion) untuk transisi,
+             scroll-reveal, stagger; opsional Lenis untuk smooth scroll
+Database   : MySQL (production), SQLite boleh untuk testing lokal
+Auth       : Laravel Fortify / auth bawaan starter kit (login, 2FA opsional)
+Rich text  : TipTap (editor blog dan deskripsi proyek) - output HTML bersih
+             yang di-sanitize di server
+Upload     : Laravel Storage (disk public) + intervention/image untuk resize
+             dan konversi WebP
+SEO        : Server-side rendering meta tag lewat Inertia <Head> dan Blade
+             layout; sitemap.xml dan robots.txt dinamis
+Queue/Cache: database queue + cache (file/database) - tidak wajib Redis
+Test       : Pest (PHP) + minimal smoke test untuk halaman utama & admin
+Deploy     : VPS Ubuntu (aaPanel) / Cloudflare Tunnel; sediakan .env.example
+             dan panduan singkat di README
+
+PENTING SEO: Karena memakai Inertia + React, aktifkan SSR Inertia
+(`npm run build:ssr` / php artisan inertia:start-ssr) agar konten ter-render di
+HTML awal untuk crawler. Jika SSR belum memungkinkan di server, minimal pastikan
+<title>, meta description, canonical, Open Graph, dan JSON-LD dirender di sisi
+server lewat Blade layout (app.blade.php) dengan data dari controller.
+
+
+--------------------------------------------------------------------------------
+4. TEMA & DESAIN SISTEM
+--------------------------------------------------------------------------------
+Gunakan token warna di bawah (format shadcn). Gabungkan ke resources/css/app.css
+yang sudah ada dari starter kit (jangan menimpa utilitas bawaan starter kit yang
+masih dibutuhkan). Mode terang = default; mode gelap tersedia dengan toggle
+(class ".dark" pada <html>), tersimpan di localStorage, dan mengikuti
+prefers-color-scheme pada kunjungan pertama.
+
+--- BEGIN CSS TOKENS ---
+:root {
+  --card: #ffffff;
+  --ring: #7c9082;
+  --input: #ffffff;
+  --muted: #e8e6e1;
+  --accent: #bfc9bb;
+  --border: #e8e6e1;
+  --radius: 0.35rem;
+  --chart-1: #7c9082;
+  --chart-2: #a0aa88;
+  --chart-3: #8b9d83;
+  --chart-4: #6b7280;
+  --chart-5: #e8e6e1;
+  --popover: #ffffff;
+  --primary: #0c4b29;
+  --sidebar: #fafaf8;
+  --spacing: 0.23rem;
+  --font-mono: JetBrains Mono, Courier New, monospace;
+  --font-sans: Antic, ui-sans-serif, sans-serif, system-ui;
+  --secondary: #ced4bf;
+  --background: #f8f7f4;
+  --font-serif: Signifier, Georgia, serif;
+  --foreground: #1a1f2e;
+  --destructive: #c73e3a;
+  --shadow-blur: 2px;
+  --shadow-color: #1a1f2e;
+  --sidebar-ring: #7c9082;
+  --shadow-spread: 0px;
+  --letter-spacing: 0em;
+  --shadow-opacity: 0.04;
+  --sidebar-accent: #e8e6e1;
+  --sidebar-border: #e8e6e1;
+  --card-foreground: #1a1f2e;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 1px;
+  --sidebar-primary: #7c9082;
+  --muted-foreground: #6b7280;
+  --accent-foreground: #1a1f2e;
+  --popover-foreground: #1a1f2e;
+  --primary-foreground: #ffffff;
+  --sidebar-foreground: #1a1f2e;
+  --secondary-foreground: #1a1f2e;
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: #1a1f2e;
+  --sidebar-primary-foreground: #ffffff;
+}
+
+.dark {
+  --card: #121212;
+  --ring: #7c9082;
+  --input: #121212;
+  --muted: #1a1a1a;
+  --accent: #36443a;
+  --border: #2a2a2a;
+  --radius: 0.375rem;
+  --chart-1: #7c9082;
+  --chart-2: #a0aa88;
+  --chart-3: #8b9d83;
+  --chart-4: #6b7280;
+  --chart-5: #5a6b5e;
+  --popover: #121212;
+  --primary: #70a84d;
+  --sidebar: #0f0f0f;
+  --spacing: 0.25rem;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --secondary: #1a1a1a;
+  --background: #0a0a0a;
+  --font-serif: ui-serif, Georgia, serif;
+  --foreground: #f5f5f5;
+  --destructive: #ef4444;
+  --shadow-blur: 8px;
+  --shadow-color: #000000;
+  --sidebar-ring: #7c9082;
+  --shadow-spread: -1px;
+  --letter-spacing: 0em;
+  --shadow-opacity: 0.1;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-border: #2a2a2a;
+  --card-foreground: #f5f5f5;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 4px;
+  --sidebar-primary: #7c9082;
+  --muted-foreground: #a0a0a0;
+  --accent-foreground: #f5f5f5;
+  --popover-foreground: #f5f5f5;
+  --primary-foreground: #000000;
+  --sidebar-foreground: #f5f5f5;
+  --secondary-foreground: #f5f5f5;
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: #f5f5f5;
+  --sidebar-primary-foreground: #ffffff;
+}
+--- END CSS TOKENS ---
+
+Blok @theme inline: petakan token ke utilitas Tailwind v4 dengan NAMESPACE YANG
+BENAR (versi mentah dari generator memakai prefix --color-* untuk semua token,
+termasuk radius/font/spacing/shadow, ini SALAH untuk non-warna). Gunakan:
+
+  @theme inline {
+    /* warna: --color-<nama>: var(--<nama>) untuk
+       background, foreground, card, card-foreground, popover,
+       popover-foreground, primary, primary-foreground, secondary,
+       secondary-foreground, muted, muted-foreground, accent,
+       accent-foreground, destructive, destructive-foreground, border,
+       input, ring, chart-1..5, sidebar, sidebar-foreground,
+       sidebar-primary, sidebar-primary-foreground, sidebar-accent,
+       sidebar-accent-foreground, sidebar-border, sidebar-ring */
+    --radius-sm: calc(var(--radius) - 2px);
+    --radius-md: var(--radius);
+    --radius-lg: calc(var(--radius) + 2px);
+    --radius-xl: calc(var(--radius) + 6px);
+    --font-sans: var(--font-sans);
+    --font-serif: var(--font-serif);
+    --font-mono: var(--font-mono);
+  }
+
+Tipografi:
+  - Sans (UI/body): Antic (Google Fonts), fallback system-ui. Self-host atau
+    gunakan <link rel="preconnect"> + font-display: swap.
+  - Serif (heading/aksen editorial): "Signifier" adalah font komersial;
+    JANGAN dipakai kecuali ada lisensi. Gunakan fallback Georgia (sudah ada di
+    token) atau ganti dengan font serif gratis (mis. Fraunces / Newsreader).
+  - Mono: JetBrains Mono (untuk label teknis, badge tech stack, kode).
+  - Skala heading: H1 serif besar (clamp 2.5rem-4.5rem), H2 serif, body sans.
+
+Gaya visual (acuan dari halaman projects.html yang sudah ada):
+  - Layout editorial: garis pemisah tipis (border), banyak whitespace, kartu
+    datar dengan shadow sangat halus (token --shadow-*), sudut kecil (radius
+    0.35rem).
+  - Daftar proyek gaya "accordion per tahun" (seperti projects.html) dipakai
+    sebagai salah satu mode tampilan di halaman Projects (lihat 6.3).
+  - Header sticky dengan backdrop-blur, tombol CTA "Contact" bulat (primary).
+  - Warna aksen utama = --primary (#0c4b29 terang / #70a84d gelap); permukaan
+    sekunder = --secondary / --accent (sage).
+  - Catatan: projects.html lama memakai emerald Tailwind; untuk versi baru
+    gunakan token di atas (sage/forest), bukan kelas emerald-*.
+
+Aksesibilitas: kontras WCAG AA, focus ring terlihat (--ring), semantic HTML,
+alt text gambar wajib (field di admin), skip-to-content link, navigasi keyboard.
+
+
+--------------------------------------------------------------------------------
+5. ARSITEKTUR HALAMAN PUBLIK
+--------------------------------------------------------------------------------
+Navigasi utama: About | Services | Projects | Blog | Testimonials | Contact
+Plus: toggle bahasa (ID/EN), toggle tema (terang/gelap), CTA "Contact".
+Di mobile: menu hamburger (Sheet/Drawer) dengan animasi halus.
+
+Rute publik:
+  /                       Beranda (landing page lengkap, lihat 6.1)
+  /tentang-saya           About Me (versi lengkap)  [alias /about]
+  /projects               Daftar proyek (filter, pencarian, mode tampilan)
+  /projects/{slug}        Detail proyek (studi kasus)
+  /blog                   Daftar artikel (kategori, tag, pencarian, paginasi)
+  /blog/{slug}            Detail artikel
+  /blog/kategori/{slug}   Arsip kategori
+  /blog/tag/{slug}        Arsip tag
+  /testimonials           Semua testimoni / proof
+  /kontak                 Halaman kontak lengkap  [alias /contact]
+  /sitemap.xml            Sitemap dinamis
+  /robots.txt             Robots dinamis (editable dari admin)
+  /feed.xml               RSS blog
+  /{halaman lain}         Halaman statis kustom dari admin (mis. Privacy Policy)
+  *                       Halaman 404 kustom (lihat 7)
+
+Multi-bahasa: prefix /en untuk English (mis. /en/projects). ID = default tanpa
+prefix. Sediakan hreflang (id, en, x-default) di setiap halaman. Konten dinamis
+(proyek, artikel, testimoni, section beranda) punya kolom terjemahan
+(title_id/title_en, dst.) - bila versi EN kosong, fallback ke ID.
+
+
+--------------------------------------------------------------------------------
+6. SPESIFIKASI FITUR PUBLIK
+--------------------------------------------------------------------------------
+
+6.1 BERANDA (LANDING PAGE LENGKAP)
+Satu halaman scroll yang memuat ringkasan semua section. Tiap section punya
+anchor id (#about, #services, #projects, #credentials, #blog, #testimonials,
+#faq, #contact) dan link "Lihat semua" ke halaman penuhnya. Urutan section
+dapat diatur dan di-on/off dari admin (Section Manager).
+
+Urutan default:
+  1. HERO
+     - Badge status "Open for Opportunities" (hijau, titik berdenyut).
+     - H1 tagline utama + sub-tagline.
+     - Teks berganti (typewriter/rotating) untuk peran: Full-Stack Developer |
+       Machine Learning | Automation | AI Engineering IoT.
+     - CTA: "Lihat Proyek" (-> #projects) dan "Hubungi Saya" (-> #contact),
+       tombol sekunder "Download CV" (file dari admin, opsional).
+     - Ikon sosial. Elemen visual: foto profil (upload admin) atau ilustrasi
+       abstrak halus bergerak (parallax ringan / gradient mesh sage).
+  2. STATS / PROOF BAR
+     - Angka animasi count-up (dikelola admin): jumlah proyek, sertifikasi,
+       klien instansi, tahun pengalaman, dst.
+  3. ABOUT (ringkasan)
+     - Ringkasan profil, domisili, gelar, tombol "Selengkapnya".
+  4. SERVICES / TECH STACK
+     - Kartu layanan (4 kategori di 2.2) dengan ikon, hover lift halus.
+     - Marquee/grid badge teknologi (Laravel, PHP, React, Python, dll.).
+  5. PROJECTS (unggulan)
+     - Carousel/grid 3-6 proyek "featured" dengan gambar, kategori, tahun.
+     - Tombol "Semua Proyek". Klik membuka halaman detail.
+  6. CREDENTIALS
+     - Timeline/grid sertifikasi & pelatihan (2.1), dapat difilter
+       (Sertifikasi | Seminar/Konferensi | Skor Tes).
+  7. BLOG (terbaru)
+     - 3 artikel terbaru (kartu dengan cover, kategori, waktu baca).
+  8. TESTIMONIALS / PROOF
+     - Slider testimoni + logo klien/instansi + tautan bukti (screenshot,
+       link situs live, surat referensi bila ada).
+  9. FAQ
+     - Accordion (dikelola admin). Sertakan JSON-LD FAQPage.
+ 10. CONTACT
+     - Formulir kontak + info WhatsApp, email, lokasi, sosial.
+ 11. FOOTER
+     - Navigasi, sosial, copyright, link Privacy Policy, toggle bahasa.
+
+6.2 ABOUT ME (halaman penuh)
+  - Cerita profil, foto, nilai kerja (disiplin, efisiensi, otomasi).
+  - Pendidikan (S.Kom Teknik Informatika), pengalaman riset & publikasi jurnal.
+  - Timeline karier/pendidikan (admin: CRUD "Experience").
+  - Daftar skill dengan kategori; sertifikasi lengkap dengan tautan verifikasi
+    (opsional) dan gambar sertifikat (lightbox).
+
+6.3 PROJECTS
+  - Tampilan: (a) Grid kartu, (b) Daftar akordion per tahun (gaya
+    projects.html). Toggle tampilan disimpan di localStorage.
+  - Filter: kategori (Web System, Government, Machine Learning, Finance,
+    Health, Livestock, POS/Company Profile), teknologi, tahun; pencarian teks.
+  - Animasi: layout transition saat filter (AnimatePresence + layout).
+  - Kartu: cover, judul, klien, kategori, tahun, badge teknologi, status.
+  - DETAIL PROYEK (/projects/{slug}) berformat studi kasus:
+      Judul, klien, peran, tahun, durasi, kategori, tech stack,
+      Latar belakang/Masalah, Solusi, Fitur utama, Hasil/Dampak (opsional),
+      galeri gambar (lightbox, urutan dapat diatur), tautan demo/live/repo
+      (opsional per proyek), proyek terkait, tombol "Diskusikan proyek
+      serupa" (-> kontak dengan subjek terisi otomatis).
+  - Opsi per proyek: "Confidential" (sembunyikan URL/gambar sensitif dan
+    tampilkan catatan "Detail dibagikan atas permintaan"). Penting karena
+    banyak proyek milik instansi pemerintah.
+  - Proyek tanpa tahun/gambar tetap tampil dengan placeholder yang rapi.
+
+6.4 BLOG
+  - Daftar: kartu, kategori, tag, pencarian, paginasi, "artikel unggulan".
+  - Detail: judul, cover, penulis, tanggal terbit/diperbarui, waktu baca,
+    daftar isi otomatis (dari heading), syntax highlighting kode (mis. Shiki
+    / highlight.js), tombol bagikan, artikel terkait, navigasi sebelumnya/
+    berikutnya, bar progres baca di atas halaman.
+  - Komentar: TIDAK ada di v1 (hindari spam). Gantikan dengan CTA kontak.
+  - SEO artikel: JSON-LD Article/BlogPosting, breadcrumbs, canonical, OG.
+  - Status: draft | scheduled | published; scheduled terbit otomatis
+    (Laravel scheduler).
+  - Topik yang relevan untuk konten awal (hanya saran, tidak perlu ditulis):
+    Laravel, otomasi browser/Playwright, ML untuk prediksi, AdSense, IoT PLTS.
+
+6.5 TESTIMONIALS / PROOF
+  - Halaman daftar + slider di beranda.
+  - Field: nama, jabatan, instansi/perusahaan, foto/logo, isi testimoni,
+    rating (opsional), tautan bukti, proyek terkait, featured, urutan.
+  - "Proof" dapat berupa: logo klien, screenshot hasil, link live, surat
+    referensi/PDF, metrik hasil. Tampilkan sebagai kartu bukti terpisah.
+  - Admin harus memastikan testimoni asli dan ada izin dari pemberi
+    testimoni (tambahkan field "consent_confirmed" boolean; hanya yang
+    bernilai true yang boleh dipublikasikan).
+
+6.6 CONTACT
+  - Formulir: nama, email, nomor WA (opsional), jenis kebutuhan (dropdown:
+    Website, Sistem Informasi, POS, ML/AI, Otomasi, IoT, Lainnya), anggaran
+    (opsional), pesan, lampiran (opsional, maks 5 MB, PDF/gambar).
+  - Judul "To: Muhamad Satria" pada form sesuai data identitas.
+  - Anti-spam: honeypot + throttle (rate limit per IP) + opsional Cloudflare
+    Turnstile (site key & secret diatur lewat admin/.env).
+  - Setelah submit: validasi inline, state loading, pesan sukses animasi,
+    pesan tersimpan ke database (inbox admin) DAN dikirim notifikasi email
+    ke admin (queue). Opsional: tombol "Kirim via WhatsApp" yang membuka
+    wa.me dengan teks terisi.
+  - Tampilkan juga: WhatsApp, email, lokasi Sukabumi, jam respons, sosial.
+
+6.7 ANIMASI & INTERAKSI (acuan implementasi)
+  - Smooth scroll antar anchor (Lenis atau CSS scroll-behavior + scroll-padding
+    untuk header sticky).
+  - Page transition halus antar halaman Inertia (fade + translateY kecil,
+    durasi 250-350 ms).
+  - Scroll-reveal pada section (fade-up, stagger anak elemen), hanya sekali.
+  - Hero: teks masuk bertahap, rotating role, background gradient/mesh lembut
+    atau partikel ringan (JANGAN berat; maksimum 60 fps di perangkat menengah).
+  - Count-up pada stats saat masuk viewport.
+  - Hover kartu: angkat 2-4 px + bayangan halus; tombol: transisi warna.
+  - Carousel proyek dengan drag/swipe dan indikator.
+  - Marquee teknologi berjalan pelan, berhenti saat hover.
+  - Bar progres scroll di header.
+  - Tombol "kembali ke atas".
+  - Kursor kustom: TIDAK dipakai (aksesibilitas).
+  - WAJIB: hormati prefers-reduced-motion (matikan transisi besar, tampilkan
+    konten langsung). Animasi memakai transform/opacity saja (hindari animasi
+    layout berat). Lazy-load gambar di bawah fold.
+  - Skeleton loading untuk data yang dimuat lambat.
+
+
+--------------------------------------------------------------------------------
+7. HALAMAN ERROR (404 DAN LAINNYA)
+--------------------------------------------------------------------------------
+Buat halaman error kustom (React/Inertia, memakai layout publik dan tema):
+  - 404 Not Found   : ilustrasi/angka "404" beranimasi halus, pesan ramah,
+                      kotak pencarian proyek/blog, tombol "Kembali ke Beranda",
+                      daftar link populer (Projects, Blog, Contact).
+  - 403 Forbidden   : akses ditolak.
+  - 419 Page Expired: sesi kedaluwarsa, tombol muat ulang.
+  - 429 Too Many Requests: terlalu banyak permintaan.
+  - 500 / 503       : kesalahan server / maintenance, tanpa membocorkan detail.
+Persyaratan:
+  - Respons memakai status HTTP yang benar (404 tetap 404, bukan 200).
+  - <meta name="robots" content="noindex"> pada halaman error.
+  - Tangani via bootstrap/app.php (withExceptions) untuk merender komponen
+    Inertia "Errors/{status}"; untuk request JSON/API tetap kembalikan JSON.
+  - Error di area /admin memakai tampilan error versi admin.
+  - Mode Maintenance: halaman "Sedang dalam pemeliharaan" kustom, dapat
+    diaktifkan dari admin (toggle), admin tetap bisa login.
+  - Catat 404 yang sering terjadi ke tabel `redirects_404_log` (path, hits,
+    last_seen) untuk dipantau dan dibuatkan redirect dari admin.
+
+
+--------------------------------------------------------------------------------
+8. PANEL ADMIN
+--------------------------------------------------------------------------------
+Rute: /admin/* (prefix dapat diganti lewat .env: ADMIN_PATH). Login memakai
+auth starter kit. Dilindungi middleware auth + role admin. Throttle login,
+dukungan 2FA (Fortify) dianjurkan. Tampilan memakai komponen sidebar shadcn
+dan token tema (--sidebar-*), responsif, mendukung mode gelap.
+
+8.1 Dashboard
+  - Kartu ringkasan: jumlah proyek, artikel, testimoni, pesan belum dibaca.
+  - Pesan kontak terbaru, 404 teratas, status SEO (halaman tanpa meta
+    description, gambar tanpa alt, dst.), pintasan "Buat artikel/proyek".
+
+8.2 Manajemen Konten (CRUD penuh, dengan pencarian, filter, bulk action,
+    soft delete + restore, drag-and-drop urutan bila relevan)
+  a. Pengaturan Beranda / Section Manager: aktif/nonaktif dan urutan section,
+     isi hero (tagline, sub-tagline, peran berganti, CTA, foto, CV), stats.
+  b. About: ringkasan, cerita lengkap, foto, nilai, timeline (Experience).
+  c. Services & Skills: kategori layanan, item skill, ikon, urutan.
+  d. Projects: field di 9.2; editor TipTap; galeri multi-upload; kategori;
+     teknologi; status draft/published; featured; confidential.
+  e. Blog: artikel, kategori, tag; editor TipTap; cover; jadwal terbit;
+     pratinjau (preview) sebelum publish; SEO per artikel.
+  f. Testimonials & Proof: CRUD + consent + urutan + featured.
+  g. Credentials: sertifikasi, jenis, penerbit, tanggal, skor, gambar,
+     tautan verifikasi.
+  h. FAQ: pertanyaan/jawaban, urutan, bahasa.
+  i. Halaman Statis: judul, slug, konten, SEO (Privacy Policy, dll.).
+  j. Menu & Footer: navigasi header/footer (label, tautan, urutan, tampil).
+  k. Media Library: unggah, daftar, cari, ganti nama, hapus, isi alt text,
+     otomatis buat WebP + ukuran responsif, tampilkan pemakaian file.
+  l. Inbox Pesan Kontak: daftar, baca/belum, balas via email/WA, arsipkan,
+     hapus, ekspor CSV, catatan internal.
+  m. Pengguna: kelola akun admin (v1 cukup 1-2 admin, role: admin).
+
+8.3 Pengaturan Umum (Settings)
+  - Identitas situs: nama situs, tagline, logo, favicon, domain, email
+    kontak, WhatsApp, lokasi, status "Open for Opportunities" (toggle),
+    tautan sosial, teks copyright.
+  - Bahasa default, aktif/nonaktif English.
+  - Warna aksen opsional (override --primary) dengan validasi kontras.
+  - Mode maintenance, pengaturan email (SMTP) dan penerima notifikasi.
+  - Turnstile/reCAPTCHA keys, konfigurasi cache (tombol "Bersihkan cache").
+
+8.4 SEO MANAGER (lengkap) - lihat Bagian 9.
+8.5 SCRIPT & INTEGRASI MANAGER - lihat Bagian 10.
+
+8.6 Audit & Keamanan admin
+  - Activity log (siapa mengubah apa, kapan) minimal untuk Settings, SEO,
+    Scripts, dan konten.
+  - Validasi server-side untuk semua input (FormRequest), CSRF, authorization
+    Policy, upload dibatasi tipe & ukuran, sanitasi HTML rich text
+    (mis. mews/purifier / HTMLPurifier).
+  - Semua rute admin: noindex dan Disallow di robots.txt.
+
+
+--------------------------------------------------------------------------------
+9. SEO (WAJIB LENGKAP)
+--------------------------------------------------------------------------------
+9.1 SEO Global (admin > SEO > Global)
+  - Title template (mis. "%s | Muhamad Satria"), default title, default meta
+    description, default OG image, Twitter card type, nama situs, locale.
+  - Canonical base URL (https://muhamadsatria.my.id).
+  - Robots default (index/follow) per jenis konten.
+  - Pemisah judul, nama organisasi/person untuk structured data.
+
+9.2 SEO Per Halaman / Per Konten (proyek, artikel, halaman statis, beranda,
+    about, projects index, blog index, kontak)
+  - Meta title, meta description (counter karakter + pratinjau hasil Google),
+    canonical URL kustom, robots (index/noindex, follow/nofollow),
+    OG title/description/image, Twitter title/description/image,
+    focus keyword (opsional), skor SEO sederhana (checklist: panjang title,
+    meta description terisi, alt gambar, heading H1 tunggal, panjang konten).
+  - Pratinjau snippet Google dan kartu sosial (OG).
+
+9.3 Structured Data (JSON-LD, otomatis, dapat dimatikan per jenis)
+  - Person (Muhamad Satria: jobTitle, url, sameAs = akun sosial, alamat
+    Sukabumi, alumniOf, hasCredential).
+  - WebSite (+ SearchAction jika ada pencarian), Organization/ProfessionalService
+    untuk SardevStudio, BreadcrumbList, BlogPosting/Article, FAQPage,
+    CreativeWork/SoftwareApplication untuk proyek, ContactPage.
+  - Field "custom JSON-LD" bebas per halaman (validasi JSON saat simpan).
+
+9.4 Teknis
+  - sitemap.xml dinamis (halaman, proyek, artikel, kategori, tag; lastmod,
+    changefreq, priority; gambar opsional; hanya konten published & indexable),
+    sitemap index jika banyak. Tombol "Ping/Regenerate" dan tautan Search
+    Console.
+  - robots.txt editable dari admin (default aman: Allow /, Disallow /admin,
+    Sitemap: URL).
+  - hreflang id/en/x-default, canonical otomatis, paginasi rel=prev/next
+    bila perlu.
+  - Redirect Manager: kelola 301/302 (dari -> ke), impor CSV, terhubung ke
+    log 404 (Bagian 7).
+  - Slug otomatis dari judul, unik, dapat diedit; perubahan slug membuat
+    redirect 301 otomatis.
+  - Open Graph image: default + otomatis (opsional) generate OG image dari
+    judul untuk artikel/proyek.
+  - RSS feed blog.
+  - favicon set + site.webmanifest + theme-color (terang & gelap).
+  - Performa: gambar WebP responsif (srcset), lazy-load, width/height
+    eksplisit (cegah CLS), preload font utama, caching header statis,
+    kompresi (gzip/brotli di server), code-splitting per halaman.
+  - Satu <h1> per halaman, hirarki heading benar, link internal deskriptif.
+  - Halaman error dan admin: noindex.
+
+9.5 Verifikasi Webmaster (admin > SEO > Verifikasi)
+  - Field meta tag verifikasi: Google Search Console (google-site-verification),
+    Bing (msvalidate.01), Yandex, Pinterest, Facebook domain verification.
+    Tiap field menerima kode atau seluruh tag; sistem merender
+    <meta name="..." content="..."> di <head>.
+  - Dukungan upload file verifikasi HTML (mis. googleXXXX.html) ke root
+    publik dari admin.
+
+
+--------------------------------------------------------------------------------
+10. SCRIPT & INTEGRASI MANAGER (HEAD / BODY / FOOTER)
+--------------------------------------------------------------------------------
+Tujuan: admin dapat menempelkan kode pelacakan/iklan/widget tanpa mengubah
+source code. Semua field OPSIONAL (kosong = tidak ada output).
+
+10.1 Field integrasi cepat (cukup isi ID, sistem membuat snippet resmi)
+  - Google Analytics 4 (Measurement ID, G-XXXXXXX)
+  - Google Tag Manager (Container ID, GTM-XXXXXXX; snippet <head> + <noscript>
+    di awal <body>)
+  - Google AdSense (Publisher ID ca-pub-XXXXXXXX; script di head; sekaligus
+    kelola file ads.txt dari admin)
+  - Meta/Facebook Pixel (Pixel ID)
+  - Microsoft Clarity (Project ID)
+  - Cloudflare Web Analytics (token)
+  - Cloudflare Turnstile (site key)
+  Tiap integrasi punya toggle aktif/nonaktif.
+
+10.2 Injeksi script kustom bebas (textarea/code editor, monospace)
+  Slot injeksi:
+   1. HEAD - awal (setelah <meta charset>)
+   2. HEAD - akhir (sebelum </head>)
+   3. BODY - awal (tepat setelah <body>)
+   4. BODY - akhir / footer (sebelum </body>)
+  Opsi per slot:
+   - Aktif/nonaktif.
+   - Cakupan: semua halaman | hanya beranda | hanya blog | hanya halaman
+     tertentu (pilih dari daftar) | kecualikan halaman tertentu.
+   - Lingkungan: hanya production (mencegah hit analytics saat dev).
+   - Prioritas/urutan jika ada beberapa blok.
+  Dapat dibuat BANYAK blok bernama (mis. "Hotjar", "Chat widget") dengan
+  slot, cakupan, status, dan catatan masing-masing.
+
+10.3 Consent & privasi
+  - Opsional banner persetujuan cookie (teks dapat diedit): script kategori
+    "analytics/ads" hanya dimuat setelah pengguna setuju (Consent Mode v2
+    untuk Google bila diaktifkan).
+  - Halaman Privacy Policy dapat diedit lewat Halaman Statis.
+
+10.4 Keamanan fitur script (PENTING)
+  - Hanya role admin yang dapat mengakses fitur ini; wajib konfirmasi
+    password / sesi baru-baru ini saat menyimpan perubahan.
+  - Konten script SENGAJA dirender mentah (tidak di-escape) karena memang
+    kode; maka JANGAN pernah menyimpan input dari pengguna publik ke slot
+    ini. Cukup tampilkan peringatan di UI: "Kode ini dieksekusi di semua
+    pengunjung. Tempel hanya dari sumber tepercaya."
+  - Catat setiap perubahan ke activity log (siapa, kapan, sebelum/sesudah).
+  - Tombol "Matikan semua script kustom" (kill switch) untuk pemulihan cepat
+    bila situs rusak oleh script bermasalah.
+  - Jangan menaruh script kustom di area /admin.
+  - Pratinjau: tombol "Test di halaman" membuka beranda dengan query
+    ?preview_scripts=1 hanya untuk admin yang sedang login.
+  - Evaluasi CSP: bila Content-Security-Policy dipakai, sediakan field daftar
+    domain yang diizinkan atau gunakan nonce; dokumentasikan di README.
+  - Cache hasil render snippet (cache::rememberForever, di-invalidate saat
+    disimpan) agar tidak query DB tiap request.
+
+10.5 Implementasi rendering
+  - Buat komponen Blade (<x-site-scripts slot="head_start" />, dst.) di
+    resources/views/app.blade.php, memuat data dari cache.
+  - Untuk SPA Inertia: snippet analytics yang perlu event pageview harus
+    mengirim ulang pageview saat navigasi Inertia (hook ke event
+    'navigate'/router.on('navigate')) agar GA4/GTM/Pixel mencatat perpindahan
+    halaman. Sediakan helper JS kecil untuk ini.
+
+
+--------------------------------------------------------------------------------
+11. SKEMA DATABASE (MySQL) - ACUAN
+--------------------------------------------------------------------------------
+Gunakan migrasi Laravel, foreign key, index pada slug/status/published_at,
+soft deletes pada konten. Nama kolom bilingual: *_id dan *_en.
+
+users (bawaan) + role (enum: admin)
+settings            : key (unique), value (json/text), group
+sections            : key, title_id, title_en, is_active, sort_order, config(json)
+pages               : slug, title_id/en, content_id/en, status, seo_id (relasi)
+projects            : slug, title_id/en, client, role, category_id, year (null),
+                      duration, summary_id/en, problem_id/en, solution_id/en,
+                      features(json), impact_id/en, cover_media_id, demo_url,
+                      repo_url, is_featured, is_confidential, status,
+                      sort_order, published_at
+project_categories  : slug, name_id/en, sort_order
+technologies        : name, slug, icon, group
+project_technology  : project_id, technology_id
+project_media       : project_id, media_id, caption, sort_order
+posts               : slug, title_id/en, excerpt_id/en, content_id/en,
+                      cover_media_id, status (draft|scheduled|published),
+                      published_at, reading_time, is_featured, author_id
+post_categories     : slug, name_id/en
+post_tag / tags     : name, slug ; pivot post_tag
+testimonials        : name, position, organization, avatar_media_id, quote_id/en,
+                      rating (null), proof_url, project_id (null),
+                      consent_confirmed, is_featured, status, sort_order
+credentials         : title, issuer, type (certification|seminar|score),
+                      score (null), issued_at, credential_url, media_id, sort_order
+experiences         : title, organization, type (work|education|research),
+                      start_date, end_date, description_id/en, sort_order
+services            : title_id/en, description_id/en, icon, sort_order
+faqs                : question_id/en, answer_id/en, sort_order, is_active
+stats               : label_id/en, value, suffix, sort_order, is_active
+menu_items          : location (header|footer), label_id/en, url, page_id,
+                      sort_order, is_active
+contact_messages    : name, email, phone, service_type, budget, message,
+                      attachment_path, ip, user_agent, is_read, is_archived,
+                      internal_note
+media               : disk, path, filename, mime, size, width, height,
+                      alt_id/en, variants(json)
+seo_meta            : seoable_type, seoable_id (polimorfik), title, description,
+                      canonical, robots_index, robots_follow, og_title,
+                      og_description, og_image_media_id, twitter_*, focus_keyword,
+                      schema_json
+redirects           : from_path (unique), to_url, status_code, hits, is_active
+redirect_404_log    : path, hits, last_seen_at
+site_scripts        : name, slot (head_start|head_end|body_start|body_end),
+                      code (longtext), scope (all|include|exclude), page_rules(json),
+                      production_only, consent_category (none|analytics|ads),
+                      is_active, sort_order, note
+integrations        : key (ga4|gtm|adsense|fb_pixel|clarity|cf_analytics|turnstile),
+                      value, is_active
+activity_log        : user_id, action, subject_type, subject_id, properties(json)
+
+Seeder: isi data Bagian 2 (identitas, sertifikasi, layanan, 11 proyek), satu
+akun admin dari ENV (ADMIN_EMAIL/ADMIN_PASSWORD, wajib diganti saat deploy),
+section default, menu default, FAQ contoh, SEO default.
+
+
+--------------------------------------------------------------------------------
+12. STRUKTUR KODE & KONVENSI
+--------------------------------------------------------------------------------
+Backend:
+  app/Http/Controllers/Public/*      (Home, About, Project, Blog, Testimonial,
+                                       Contact, Page, Sitemap, Feed)
+  app/Http/Controllers/Admin/*       (resource controller per modul)
+  app/Http/Requests/*                (FormRequest validasi)
+  app/Models/*, app/Policies/*, app/Services/* (SeoService, SitemapService,
+  ScriptRenderer, MediaService)
+  routes/web.php (publik), routes/admin.php (admin, prefix & middleware)
+Frontend (resources/js):
+  pages/public/*, pages/admin/*, pages/errors/*
+  layouts/PublicLayout.tsx, layouts/AdminLayout.tsx
+  components/ui (shadcn), components/site (Hero, SectionHeader, ProjectCard,
+  PostCard, TestimonialSlider, StatsBar, TechMarquee, ContactForm, dst.)
+  components/seo/SeoHead.tsx (membungkus <Head> + OG + JSON-LD)
+  lib/motion.ts (varian animasi terpusat: fadeUp, stagger, pageTransition)
+  lang/id.json, lang/en.json (teks UI statis)
+Konvensi:
+  - TypeScript strict; ESLint + Prettier (bawaan starter kit); Pint untuk PHP.
+  - Komponen kecil dan dapat dipakai ulang; tidak ada warna hardcode -
+    selalu pakai token tema (bg-background, text-foreground, bg-primary, dst.).
+  - Eager-loading relasi (hindari N+1); paginasi server-side; cache query
+    publik yang berat (invalidate saat konten berubah).
+  - Commit kecil, pesan jelas (Conventional Commits).
+
+
+--------------------------------------------------------------------------------
+13. KEBUTUHAN NON-FUNGSIONAL
+--------------------------------------------------------------------------------
+Performa   : LCP < 2.5 s, CLS < 0.1, INP < 200 ms pada 4G; bundle awal
+             dipecah (route-based code splitting); gambar WebP.
+Keamanan   : HTTPS, CSRF, validasi/sanitasi, rate limit (login, kontak),
+             header keamanan (X-Frame-Options, X-Content-Type-Options,
+             Referrer-Policy, HSTS), password hash, 2FA admin disarankan,
+             backup DB terjadwal (README: panduan).
+Aksesibilitas : WCAG 2.1 AA.
+Kompatibilitas: browser modern 2 versi terakhir; responsif 320 px - 1920 px.
+Privasi    : data pesan kontak hanya untuk admin; opsi hapus data atas
+             permintaan; banner cookie bila script analytics/ads aktif.
+Observability: log error Laravel; halaman 404 dipantau; (opsional) Sentry.
+Backup & Operasional: perintah artisan untuk backup, README deploy ke VPS
+             Ubuntu (aaPanel) + opsi Cloudflare Tunnel, supervisor untuk queue
+             worker, cron untuk scheduler.
+
+
+--------------------------------------------------------------------------------
+14. FASE IMPLEMENTASI (URUTAN KERJA AGENT)
+--------------------------------------------------------------------------------
+Fase 0 - Fondasi
+  - Audit starter kit yang sudah ada; pasang dependensi (motion, tiptap,
+    intervention/image, purifier, activitylog, dll.). Atur .env (MySQL).
+  - Terapkan tema (Bagian 4), font, toggle tema, layout publik & admin dasar.
+  - i18n ID/EN, struktur folder, DECISIONS.md.
+Fase 1 - Data & Admin dasar
+  - Migrasi + model + seeder (Bagian 11, data Bagian 2).
+  - Auth admin, role, layout admin, Media Library, Settings umum.
+Fase 2 - Modul konten admin
+  - CRUD: Projects, Categories, Technologies, Posts (+TipTap), Testimonials,
+    Credentials, Experiences, Services, FAQ, Stats, Pages, Menu, Section
+    Manager. Inbox kontak.
+Fase 3 - Situs publik
+  - Beranda lengkap (semua section), About, Projects (+detail), Blog
+    (+detail, kategori, tag, pencarian), Testimonials, Contact (+form,
+    anti-spam, email), halaman statis.
+Fase 4 - Animasi & polish UI
+  - Page transition, scroll-reveal, count-up, carousel, marquee, progress
+    bar, skeleton, reduced-motion, mode gelap menyeluruh.
+Fase 5 - SEO & Script Manager
+  - SeoService + SEO per konten, JSON-LD, sitemap, robots, hreflang, RSS,
+    redirect manager, verifikasi webmaster, Script & Integrasi Manager
+    (+ pageview Inertia, consent, kill switch).
+Fase 6 - Halaman error & hardening
+  - 404/403/419/429/500/503 kustom, maintenance mode, log 404, header
+    keamanan, rate limit, activity log, SSR Inertia.
+Fase 7 - QA & rilis
+  - Pest tests (rute publik 200, admin dilindungi, validasi form kontak,
+    sitemap valid, 404 mengembalikan status 404), Lighthouse, cek
+    aksesibilitas, cek responsif, README deploy, seed produksi.
+
+
+--------------------------------------------------------------------------------
+15. KRITERIA PENERIMAAN (DEFINITION OF DONE)
+--------------------------------------------------------------------------------
+[ ] Semua halaman publik di Bagian 5 dapat diakses, konten berasal dari DB.
+[ ] Beranda memuat semua section dan dapat diatur urutan/aktifnya dari admin.
+[ ] Admin dapat CRUD seluruh konten tanpa menyentuh kode.
+[ ] SEO per halaman/konten + global bekerja; meta, OG, canonical, hreflang,
+    JSON-LD muncul di HTML (cek "view-source", bukan hanya DOM hasil JS).
+[ ] sitemap.xml, robots.txt, feed.xml valid dan dinamis.
+[ ] Verifikasi GSC (meta tag/file), GA4, GTM, AdSense, Pixel dapat diisi dari
+    admin; slot script head/body/footer berfungsi dengan cakupan halaman;
+    pageview tercatat saat navigasi Inertia; kill switch berfungsi.
+[ ] Halaman 404 kustom (status HTTP 404, noindex) + 403/419/429/500/503 +
+    maintenance mode bekerja; log 404 dan redirect manager berfungsi.
+[ ] Form kontak: validasi, anti-spam, tersimpan, email notifikasi terkirim.
+[ ] Animasi halus, tidak patah, dan mati sesuai prefers-reduced-motion.
+[ ] Mode terang/gelap konsisten memakai token tema yang diberikan.
+[ ] Lighthouse mobile >= 90 (Performance, Accessibility, Best Practices, SEO).
+[ ] Tidak ada secret di repository; .env.example lengkap; README deploy ada.
+[ ] Tes otomatis lulus.
+
+
+--------------------------------------------------------------------------------
+16. DI LUAR CAKUPAN V1 (BACKLOG)
+--------------------------------------------------------------------------------
+- Komentar blog, newsletter/subscribe, e-commerce, login pengunjung.
+- Analitik internal sendiri (cukup integrasi pihak ketiga).
+- Multi-user dengan banyak role granular.
+- Generator OG image otomatis (opsional bila waktu ada).
+- Command palette (Ctrl+K) untuk navigasi cepat (kandidat v1.1).
+
+
+--------------------------------------------------------------------------------
+17. CATATAN & ASUMSI UNTUK PEMILIK
+--------------------------------------------------------------------------------
+- Font "Signifier" berlisensi komersial; token CSS Anda memintanya dengan
+  fallback Georgia. PRD ini memakai fallback tersebut kecuali Anda memiliki
+  lisensi atau mengganti dengan font serif gratis.
+- Beberapa proyek belum memiliki tahun, gambar, dan URL demo. Agent tidak
+  boleh mengarang; admin melengkapi lewat panel.
+- Untuk proyek instansi pemerintah (BPS, Sat Intelkam, Diskominfosan) dan
+  klien swasta, pastikan Anda memiliki izin menampilkan nama, gambar, dan
+  URL. Fitur "Confidential" disediakan untuk kasus ini.
+- Testimoni hanya ditampilkan bila ada persetujuan pemberinya.
+- Halaman projects.html dan home.css lama dipakai hanya sebagai acuan gaya
+  (layout akordion per tahun, header sticky, FAQ accordion); implementasi
+  baru memakai React + token tema pada Bagian 4.
+
+================================================================================
+AKHIR DOKUMEN
+================================================================================
